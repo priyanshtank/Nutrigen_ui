@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'scanner.dart'; // ✅ Import scanner page
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -54,8 +55,6 @@ class DashboardScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // const SizedBox(height: 20),
-
               // 🖼️ Image below grid
               Center(
                 child: Image.asset(
@@ -74,33 +73,41 @@ class DashboardScreen extends StatelessWidget {
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 35,
                   children: [
-                    // Scan Food
+                    // ✅ Scan Food
                     DashboardBox(
                       color: Colors.green.shade400,
                       icon: Icons.qr_code_scanner,
                       label: 'Scan Food',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BarcodeScannerPage(),
+                          ),
+                        );
+                      },
                     ),
 
-                    // My Account
+                    // My Account (Placeholder)
                     DashboardBox(
                       color: Colors.green.shade200,
                       icon: Icons.person,
                       label: 'My Account',
                     ),
 
-                    // My Food Log
+                    // My Food Log (Placeholder)
                     DashboardBox(
                       color: Colors.green.shade100,
                       icon: Icons.calendar_today,
                       label: 'My Food Log',
                     ),
 
-                    // Ask AI
+                    // Ask AI (Placeholder)
                     DashboardBox(
                       color: Colors.green.shade500,
                       icon: Icons.chat_bubble_outline,
                       label: 'Ask AI',
-                    )
+                    ),
                   ],
                 ),
               )
@@ -112,39 +119,46 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
+// Updated DashboardBox to support onTap
 class DashboardBox extends StatelessWidget {
   final Color color;
   final IconData icon;
   final String label;
+  final VoidCallback? onTap;
 
-  DashboardBox({
+  const DashboardBox({
     required this.color,
     required this.icon,
     required this.label,
+    this.onTap, // Optional tap handler
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(40),
-      ),
-      padding: const EdgeInsets.all(30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.black, size: 42),
-          const SizedBox(height: 12),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          )
-        ],
+    return InkWell(
+      onTap: onTap, // ⬅️ Now clickable
+      borderRadius: BorderRadius.circular(40),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.black, size: 42),
+            const SizedBox(height: 12),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
