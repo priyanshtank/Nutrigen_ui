@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'scanner.dart'; // ✅ Import scanner page
+import 'onboarding.dart'; // ⬅️ Add this import
+
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -76,6 +78,7 @@ class DashboardScreen extends StatelessWidget {
                     // ✅ Scan Food
                     DashboardBox(
                       color: Colors.green.shade400,
+                      
                       icon: Icons.qr_code_scanner,
                       label: 'Scan Food',
                       onTap: () {
@@ -93,6 +96,14 @@ class DashboardScreen extends StatelessWidget {
                       color: Colors.green.shade200,
                       icon: Icons.person,
                       label: 'My Account',
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OnboardingScreen(),
+                        ),
+                      );
+                    },  
                     ),
 
                     // My Food Log (Placeholder)
