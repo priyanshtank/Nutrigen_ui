@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'scanner.dart'; // ✅ Import scanner page
-import 'onboarding.dart'; // ⬅️ Add this import
+// import 'onboarding.dart'; // ⬅️ Add this import
+// import 'login.dart'; // ✅ Import login page
+import 'get_started.dart';
 
 
 class DashboardScreen extends StatelessWidget {
@@ -96,14 +98,20 @@ class DashboardScreen extends StatelessWidget {
                       color: Colors.green.shade200,
                       icon: Icons.person,
                       label: 'My Account',
-                      onTap: () {
+                    //   onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => const LoginPage(),
+                    //     ),
+                    //   );
+                    // },  
+                          onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingScreen(),
-                        ),
-                      );
-                    },  
+                          context,
+                          MaterialPageRoute(builder: (context) => const GetStartedPage()),
+                        );
+                    },
                     ),
 
                     // My Food Log (Placeholder)

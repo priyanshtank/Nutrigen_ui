@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "334660570249",
+    "project_id": "nutrigen-ui",
+    "storage_bucket": "nutrigen-ui.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334660570249:android:a6c2bacd6a90dfa1cf0a58",
+        "android_client_info": {
+          "package_name": "com.example.nutrigen_ui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANOGtHLvkb-SRAGcn9bg3xFAmXARzemRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334660570249:android:36ae90197ebe7dd9cf0a58",
+        "android_client_info": {
+          "package_name": "com.senkusha.nutrigen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANOGtHLvkb-SRAGcn9bg3xFAmXARzemRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
