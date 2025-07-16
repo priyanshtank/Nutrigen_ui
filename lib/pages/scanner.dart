@@ -77,7 +77,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'product_details_page.dart';
+// import 'barcode_success_page.dart';
+
+import 'barcode_success_page.dart';
 
 class BarcodeScannerPage extends StatefulWidget {
   const BarcodeScannerPage({super.key});
@@ -90,13 +92,12 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   String? barcodeValue;
   final MobileScannerController controller = MobileScannerController();
   bool isProcessing = false;
-  final String userId = "user_1234"; // Static user ID
+  final String userId = "user_1234";
 
   Future<void> fetchProductDetails(String barcode) async {
     const String apiUrl =
         'https://product-info-api-546561582790.asia-south1.run.app/api/v1/product';
 
-    debugPrint('📡 Making API request for barcode: $barcode');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -105,33 +106,24 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
       );
 
       if (response.statusCode == 200) {
-        debugPrint('✅ API response received');
         final data = jsonDecode(response.body);
-
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsPage(productData: data),
+            builder: (context) => BarcodeSuccessPage(productData: data),
           ),
         );
-      } else if (response.statusCode == 404) {
-        debugPrint('❌ Product not found for barcode: $barcode');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Product not found.')),
-        );
       } else {
-        debugPrint('❌ API Error: ${response.statusCode}');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${response.statusCode}')),
+          SnackBar(content: Text('Product not found or error occurred.')),
         );
+        setState(() => isProcessing = false);
       }
     } catch (e) {
-      debugPrint('❌ Exception during API call: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
-    } finally {
-      isProcessing = false;
+      setState(() => isProcessing = false);
     }
   }
 
@@ -153,9 +145,10 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
               final code = barcodeCapture.barcodes.first.rawValue;
 
               if (code != null && code != barcodeValue && !isProcessing) {
-                setState(() => barcodeValue = code);
-                isProcessing = true;
-                debugPrint('📦 Barcode detected: $code');
+                setState(() {
+                  barcodeValue = code;
+                  isProcessing = true;
+                });
                 fetchProductDetails(code);
               }
             },
