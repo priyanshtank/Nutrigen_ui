@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'scanner.dart';
 import 'dashboard.dart';
+import 'get_started.dart'; // ✅ Import added
 
 class ProductDetailsPage extends StatelessWidget {
   final Map<String, dynamic> productData;
@@ -23,8 +24,7 @@ class ProductDetailsPage extends StatelessWidget {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
-        padding:
-            const EdgeInsets.fromLTRB(16, 14, 16, 80), // Space for bottom bar
+        padding: const EdgeInsets.fromLTRB(16, 14, 16, 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -191,7 +191,12 @@ class ProductDetailsPage extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.person_outline, size: 28),
                 onPressed: () {
-                  // Login/profile navigation removed
+                  // ✅ Navigate to GetStartedPage
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GetStartedPage()),
+                  );
                 },
               ),
             ],

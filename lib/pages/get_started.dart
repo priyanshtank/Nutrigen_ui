@@ -82,7 +82,6 @@ class GetStartedPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 🟢 Heading
                 const Text(
                   "Welcome to NutriGen",
                   textAlign: TextAlign.center,
@@ -91,10 +90,7 @@ class GetStartedPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
-                // 🟢 Subtext
                 const Text(
                   "Smarter Food. Healthier You.",
                   textAlign: TextAlign.center,
@@ -103,17 +99,15 @@ class GetStartedPage extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
-
                 const SizedBox(height: 40),
-
-                // 🟢 Sign Up Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUpPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpPage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -129,17 +123,15 @@ class GetStartedPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 16),
-
-                // 🟢 Login Button
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
                       );
                     },
                     style: OutlinedButton.styleFrom(
@@ -163,4 +155,3 @@ class GetStartedPage extends StatelessWidget {
     );
   }
 }
-
