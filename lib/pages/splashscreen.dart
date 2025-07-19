@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: Colors.black54),
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 60),
 
                 // Only this button is clickable now
                 GestureDetector(

@@ -1,57 +1,72 @@
 import 'package:flutter/material.dart';
-import 'scanner.dart'; // ✅ Import scanner page
-// import 'onboarding.dart'; // ⬅️ Add this import
-// import 'login.dart'; // ✅ Import login page
+import 'scanner.dart';
 import 'get_started.dart';
 
-
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 5),
-              const Text(
-                "Hi There 👋",
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
 
-              // Daily Health Tip
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade200,
-                      blurRadius: 10,
-                      spreadRadius: 2,
+// 👋 Greeting Header
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    SizedBox(height: 20),
+                    Text(
+                      "Hey There !",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4CAF50),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Find, Track and eat Healthy",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF4CB050),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
-                child: const Column(
+              ),
+
+              const SizedBox(height: 10),
+
+              // 🍃 Healthy Diet Box
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Daily Health Tip",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
+                    // Text Column
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          SizedBox(height: 8),
+                        ],
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Did you know? High-fiber snacks support digestion.",
-                      style: TextStyle(fontSize: 14),
+                    const SizedBox(width: 0),
+                    Image.asset(
+                      'assets/healthy-diet.png',
+                      height: 250,
                     ),
                   ],
                 ),
@@ -59,124 +74,116 @@ class DashboardScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // 🖼️ Image below grid
-              Center(
-                child: Image.asset(
-                  'assets/Hamburger-bro.png',
-                  height: 200,
-                  fit: BoxFit.contain,
+              // 📷 Scan/Search Card
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18),
                 ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Grid Buttons
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 35,
+                child: Column(
                   children: [
-                    // ✅ Scan Food
-                    DashboardBox(
-                      color: Colors.green.shade400,
-                      
-                      icon: Icons.qr_code_scanner,
-                      label: 'Scan Food',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BarcodeScannerPage(),
-                          ),
-                        );
-                      },
+                    Image.asset(
+                      'assets/scan.png',
+                      height: 180,
                     ),
-
-                    // My Account (Placeholder)
-                    DashboardBox(
-                      color: Colors.green.shade200,
-                      icon: Icons.person,
-                      label: 'My Account',
-                    //   onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const LoginPage(),
-                    //     ),
-                    //   );
-                    // },  
-                          onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const GetStartedPage()),
-                        );
-                    },
+                    const SizedBox(height: 12),
+                    const Text(
+                      "Scan/Search Products",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-
-                    // My Food Log (Placeholder)
-                    DashboardBox(
-                      color: Colors.green.shade100,
-                      icon: Icons.calendar_today,
-                      label: 'My Food Log',
-                    ),
-
-                    // Ask AI (Placeholder)
-                    DashboardBox(
-                      color: Colors.green.shade500,
-                      icon: Icons.chat_bubble_outline,
-                      label: 'Ask AI',
+                    const SizedBox(height: 6),
+                    const Text(
+                      "Scan or search foods to get nutrition\n& protein information",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black54,
+                      ),
                     ),
                   ],
                 ),
-              )
+              ),
+
+              const SizedBox(height: 30),
             ],
           ),
         ),
       ),
-    );
-  }
-}
 
-// Updated DashboardBox to support onTap
-class DashboardBox extends StatelessWidget {
-  final Color color;
-  final IconData icon;
-  final String label;
-  final VoidCallback? onTap;
-
-  const DashboardBox({
-    required this.color,
-    required this.icon,
-    required this.label,
-    this.onTap, // Optional tap handler
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap, // ⬅️ Now clickable
-      borderRadius: BorderRadius.circular(40),
-      child: Container(
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: Colors.black, size: 42),
-            const SizedBox(height: 12),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
+      // 🔻 Bottom Navigation Bar
+      bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 76, 175, 80),
+        shape: const CircularNotchedRectangle(),
+        elevation: 8,
+        notchMargin: 6,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // ✅ Home icon highlighted
+              Container(
+                height: 54,
+                width: 54,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.home,
+                      size: 28, color: Color.fromARGB(255, 76, 176, 80)),
+                  onPressed: () {},
+                ),
               ),
-            )
-          ],
+
+              // Menu Icon
+              IconButton(
+                color: const Color.fromARGB(255, 246, 246, 246),
+                icon: const Icon(Icons.restaurant_menu_outlined, size: 26),
+                onPressed: () {},
+              ),
+
+              // Scan Icon (normal now)
+              IconButton(
+                icon: const Icon(Icons.qr_code_scanner, size: 30),
+                color: const Color.fromARGB(255, 246, 246, 246),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const BarcodeScannerPage(),
+                    ),
+                  );
+                },
+              ),
+
+              // Chat Icon
+              IconButton(
+                color: const Color.fromARGB(255, 246, 246, 246),
+                icon: const Icon(Icons.chat_bubble_outline, size: 26),
+                onPressed: () {},
+              ),
+
+              // Profile Icon
+              IconButton(
+                color: const Color.fromARGB(255, 246, 246, 246),
+                icon: const Icon(Icons.person_outline, size: 28),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const GetStartedPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

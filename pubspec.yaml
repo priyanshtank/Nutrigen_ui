@@ -14,6 +14,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^3.0.0
   firebase_auth: ^5.0.0
+  google_sign_in: ^6.2.1
+  intl_phone_field: ^3.1.0
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
@@ -24,4 +27,5 @@ flutter:
 
   assets:
     - assets/nutrigen_logo.png
-    - assets/Hamburger-bro.png
+    - assets/healthy-diet.png
+    - assets/scan.png

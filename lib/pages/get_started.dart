@@ -135,7 +135,7 @@ class GetStartedPage extends StatelessWidget {
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.green),
+                      side: const BorderSide(color: Color(0xFF4CAF50)),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
