@@ -77,8 +77,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-// import 'barcode_success_page.dart';
-
 import 'barcode_success_page.dart';
 
 class BarcodeScannerPage extends StatefulWidget {
@@ -130,17 +128,12 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scan Item'),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Stack(
         children: [
+          // Barcode scanner camera view
           MobileScanner(
             controller: controller,
+            fit: BoxFit.cover,
             onDetect: (barcodeCapture) {
               final code = barcodeCapture.barcodes.first.rawValue;
 
@@ -153,24 +146,79 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
               }
             },
           ),
+
+          // Dark transparent overlay
+          Container(color: Colors.black.withOpacity(0.4)),
+
+          // Scanner focus box
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+          ),
+
+          // Top bar with back button
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black54,
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: Colors.white),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Text(
+                    'Scan Item',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+
+          // Display scanned barcode value
           if (barcodeValue != null)
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: const EdgeInsets.all(20),
-                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 30),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade700.withOpacity(0.9),
+                  color: Colors.green.shade600.withOpacity(0.95),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  'Scanned Barcode: $barcodeValue',
+                  'Scanned: $barcodeValue',
                   style: const TextStyle(
-                    fontSize: 18,
                     color: Colors.white,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
+              ),
+            ),
+
+          // Loading overlay
+          if (isProcessing)
+            Container(
+              color: Colors.black.withOpacity(0.6),
+              child: const Center(
+                child: CircularProgressIndicator(color: Colors.white),
               ),
             ),
         ],
