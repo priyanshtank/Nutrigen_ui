@@ -1,12 +1,82 @@
 import 'package:flutter/material.dart';
-import 'scanner.dart';
-import 'get_started.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class DashboardScreen extends StatelessWidget {
+import 'scanner.dart';
+// import 'get_started.dart';
+import 'profile_page.dart';
+import 'services/auth_service.dart';
+
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  Map<String, dynamic>? userData;
+  bool isLoading = true;
+  bool isError = false;
+  String errorMessage = "";
+  final String userId = "user001";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserProfile();
+  }
+
+  Future<void> fetchUserProfile() async {
+    final String url =
+        'https://neha-nutrigen-backend-db-546561582790.asia-south1.run.app/api/userprofile/?user_id=$userId';
+
+    final token = await AuthService.getToken();
+
+    if (token == null) {
+      setState(() {
+        isError = true;
+        errorMessage = "Error: Unable to retrieve token.";
+        isLoading = false;
+      });
+      return;
+    }
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final decoded = json.decode(response.body);
+        setState(() {
+          userData = decoded;
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isError = true;
+          errorMessage = "Failed: ${response.statusCode}";
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        isError = true;
+        errorMessage = "Exception: $e";
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userName = userData?['name'] ?? 'There';
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -16,23 +86,23 @@ class DashboardScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 8),
 
-// 👋 Greeting Header
+              // 👋 Greeting Header
               Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    SizedBox(height: 20),
+                  children: [
+                    const SizedBox(height: 20),
                     Text(
-                      "Hey There !",
+                      "Hey $userName!",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF4CAF50),
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Text(
+                    const SizedBox(height: 4),
+                    const Text(
                       "Find, Track and eat Healthy",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -177,7 +247,7 @@ class DashboardScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const GetStartedPage(),
+                      builder: (_) => const PersonalInfoPage(),
                     ),
                   );
                 },

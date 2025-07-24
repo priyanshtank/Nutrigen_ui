@@ -17,6 +17,10 @@ dependencies:
   google_sign_in: ^6.2.1
   intl_phone_field: ^3.1.0
   flutter_secure_storage: ^9.0.0
+  lucide_icons: ^0.257.0
+
+
+
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +33,4 @@ flutter:
     - assets/nutrigen_logo.png
     - assets/healthy-diet.png
     - assets/scan.png
+    - assets/profile.png
