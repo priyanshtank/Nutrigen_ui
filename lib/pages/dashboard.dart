@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:nutrigen_ui/pages/chat_screen.dart';
 import 'dart:convert';
 
 import 'scanner.dart';
-// import 'get_started.dart';
+import 'get_started.dart';
 import 'profile_page.dart';
 import 'services/auth_service.dart';
 
@@ -86,12 +87,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               const SizedBox(height: 8),
 
+              // 👤 Top-left profile icon
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.person,
+                        color: Color(0xFF4CAF50), size: 28),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const PersonalInfoPage()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+
               // 👋 Greeting Header
               Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Text(
                       "Hey $userName!",
                       textAlign: TextAlign.center,
@@ -115,25 +133,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
-              // 🍃 Healthy Diet Box
+              // 🍃 Healthy Diet Image Box
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text Column
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 0),
+                    Expanded(child: Container()), // spacing
                     Image.asset(
                       'assets/healthy-diet.png',
                       height: 250,
@@ -142,7 +150,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
 
               // 📷 Scan/Search Card
               Container(
@@ -211,14 +219,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
 
-              // Menu Icon
+              // 🍴 Menu Icon
               IconButton(
                 color: const Color.fromARGB(255, 246, 246, 246),
                 icon: const Icon(Icons.restaurant_menu_outlined, size: 26),
                 onPressed: () {},
               ),
 
-              // Scan Icon (normal now)
+              // 🔍 Scan Icon
               IconButton(
                 icon: const Icon(Icons.qr_code_scanner, size: 30),
                 color: const Color.fromARGB(255, 246, 246, 246),
@@ -232,14 +240,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               ),
 
-              // Chat Icon
+              // 💬 Chat Icon
               IconButton(
                 color: const Color.fromARGB(255, 246, 246, 246),
                 icon: const Icon(Icons.chat_bubble_outline, size: 26),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChatScreen(),
+                    ),
+                  );
+                },
               ),
 
-              // Profile Icon
+              // 👤 Profile Icon (Get Started Page)
               IconButton(
                 color: const Color.fromARGB(255, 246, 246, 246),
                 icon: const Icon(Icons.person_outline, size: 28),
@@ -247,7 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const PersonalInfoPage(),
+                      builder: (_) => GetStartedPage(),
                     ),
                   );
                 },

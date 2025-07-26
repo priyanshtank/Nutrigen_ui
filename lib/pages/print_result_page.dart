@@ -3,6 +3,7 @@ import 'dashboard.dart';
 import 'scanner.dart';
 // import 'get_started.dart';
 import 'profile_page.dart';
+import 'chat_screen.dart';
 
 class PrintResultPage extends StatelessWidget {
   final Map<String, dynamic> productData;
@@ -216,7 +217,14 @@ class PrintResultPage extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.chat_bubble_outline,
                     size: 26, color: Colors.white),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChatScreen(),
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.person_outline,
